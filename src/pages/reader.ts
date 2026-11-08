@@ -1,13 +1,18 @@
 import { parseQuery } from "ufo";
 import { getActiveQuery } from "../scripts/tabs";
-import { ExtensionPackage, MangaChapterInfo } from "../ext/types";
+import {
+	ExtensionPackage,
+	MangaChapterInfo,
+	MangaReadingMode,
+} from "../ext/types";
 import Swiper from "swiper";
-import { Keyboard, Zoom } from "swiper/modules";
+import { FreeMode, Keyboard, Mousewheel, Zoom } from "swiper/modules";
 import { getStorage, setStorage } from "../utils/io";
+import { SwiperOptions } from "swiper/types";
 
 const pageName = "reader";
 
-const content = document.getElementById(pageName + "-content")!;
+//const content = document.getElementById(pageName + "-content")!;
 
 const swiperElement = document.getElementById(
 	"reader-swiper",
@@ -17,7 +22,11 @@ const swiperWrapper = document.getElementById(
 	"reader-swiper-wrapper",
 ) as HTMLDivElement;
 
-var swiper = new Swiper(swiperElement, {
+var swiper: Swiper | undefined;
+
+const mangaConfig: SwiperOptions = {
+	direction: "horizontal",
+	slidesPerView: 1,
 	lazyPreload: true,
 	modules: [Zoom, Keyboard],
 	zoom: {
@@ -30,14 +39,40 @@ var swiper = new Swiper(swiperElement, {
 		onlyInViewport: true,
 		pageUpDown: true,
 	},
-});
+};
+
+const webtoonConfig: SwiperOptions = {
+	direction: "vertical",
+	slidesPerView: "auto",
+	freeMode: {
+		enabled: true,
+		sticky: false,
+		momentum: true,
+	},
+	mousewheel: {
+		sensitivity: 1,
+		releaseOnEdges: true,
+	},
+	autoHeight: true,
+	observer: true,
+	observeParents: true,
+	lazyPreload: true,
+	modules: [Zoom, Keyboard, FreeMode, Mousewheel],
+	zoom: {
+		maxRatio: 3,
+		minRatio: 1,
+		toggle: true,
+	},
+	keyboard: {
+		enabled: false,
+		onlyInViewport: true,
+		pageUpDown: true,
+	},
+};
 
 function resetContent() {
+	if (swiper) swiper.destroy();
 	swiperWrapper.innerHTML = "";
-	swiper.update();
-	swiper.slideTo(0);
-	swiper.slideReset(0);
-	content.setAttribute("info", "true");
 }
 
 export async function displayChapterReader() {
@@ -52,6 +87,11 @@ export async function displayChapterReader() {
 
 	const info = await getChapterInfo(queries, ext);
 
+	swiper = new Swiper(
+		swiperElement,
+		info.readingMode == MangaReadingMode.STRIP ? webtoonConfig : mangaConfig,
+	);
+
 	let inner = "";
 
 	info.images.forEach((url) => {
@@ -59,6 +99,21 @@ export async function displayChapterReader() {
 	});
 
 	swiperWrapper.innerHTML = inner;
+
+	(
+		[...document.querySelectorAll(".swiper-slide img")] as HTMLImageElement[]
+	).forEach((img) => {
+		if (img.complete) {
+			img.classList.add("loaded");
+		} else {
+			img.addEventListener("load", () => {
+				img.classList.add("loaded");
+				if (swiper) {
+					swiper.updateAutoHeight();
+				}
+			});
+		}
+	});
 
 	const settings = await getStorage("settings");
 	swiper.changeLanguageDirection(settings["reader"]["rtl"] ? "rtl" : "ltr");

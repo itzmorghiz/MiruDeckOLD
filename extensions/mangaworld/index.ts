@@ -165,7 +165,12 @@ export default {
 						).format("YYYY-MM-DD");
 
 						const href = $chapter.find("a.chap").first().attr("href") ?? "";
-						const id = href.split("/").filter(Boolean).pop() ?? "";
+						const id =
+							href
+								.split("/")
+								.filter(Boolean)
+								.pop()
+								?.replace("?style=list", "") ?? "";
 
 						return { name: chapName, index: chapIndex, date, id };
 					})
