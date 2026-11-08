@@ -1,5 +1,5 @@
 import { getCurrent, onOpenUrl } from "@tauri-apps/plugin-deep-link";
-import { setActiveTab } from "./tabs";
+import { setActiveTab } from "../scripts/tabs";
 
 export async function setupDeepLinking() {
 	// Helper function to parse an incoming URL and activate the corresponding tab/page

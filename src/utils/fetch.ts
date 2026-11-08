@@ -1,5 +1,6 @@
 import { isTauri } from "@tauri-apps/api/core";
 import { fetch as tauriFetch } from "@tauri-apps/plugin-http";
+import { stringifyQuery } from "ufo";
 
 export function safeFetch(
 	...args: Parameters<typeof window.fetch>
@@ -21,7 +22,7 @@ export function safeFetch(
 		urlString = String(input);
 	}
 
-	const proxiedUrl = `https://de-cors.itzmorghiz.workers.dev/?url=${encodeURIComponent(urlString)}`;
+	const proxiedUrl = `https://de-cors.itzmorghiz.workers.dev/?${stringifyQuery({ url: urlString })}`;
 
 	if (input instanceof Request) {
 		const newRequest = new Request(proxiedUrl, input);

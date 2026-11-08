@@ -1,7 +1,7 @@
 import { CircularProgress } from "mdui";
 import { MangaSearchEntry } from "../ext/types";
-import { resultsDiv } from "./init";
-import { setActiveTab } from "../utils/tabs";
+import { resultsDiv } from "../scripts/init";
+import { setActiveTab } from "../scripts/tabs";
 import { stringifyQuery } from "ufo";
 
 export function search(query: string) {

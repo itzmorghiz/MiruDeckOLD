@@ -48,6 +48,48 @@ body {
 	display: none !important;
 }
 
+[slot="icon"],
+[slot="active-icon"],
+::part(icon),
+mdui-icon,
+.end-icon mdui-icon,
+.icon mdui-icon,
+.is-end-icon ::slotted([slot="end-icon"]),
+.is-icon ::slotted([slot="icon"]),
+.ptr--icon {
+	width: auto !important;
+	font-family: "Material Symbols Rounded" !important;
+	vertical-align: text-bottom;
+}
+
+.ptr--icon,
+.ptr--text {
+	color: rgb(var(--mdui-color-on-primary-container)) !important;
+}
+
+.ptr--ptr {
+	background-color: rgb(var(--mdui-color-primary-container));
+}
+
+.ptr--icon {
+	font-size: 18px;
+}
+
+.google-icon {
+	font-family:
+		"Google Sans Flex",
+		-apple-system,
+		BlinkMacSystemFont,
+		"Segoe UI",
+		Roboto,
+		Helvetica,
+		Arial,
+		sans-serif !important;
+	font-weight: 700;
+	font-variation-settings: "wdth" 100;
+	font-size: 24px;
+}
+
 mdui-divider {
 	flex-shrink: 0;
 }
@@ -139,19 +181,6 @@ mdui-navigation-bar {
 	background-color: rgb(var(--mdui-color-surface-container));
 	position: sticky;
 	bottom: 0;
-}
-
-[slot="icon"],
-[slot="active-icon"],
-::part(icon),
-mdui-icon,
-.end-icon mdui-icon,
-.icon mdui-icon,
-.is-end-icon ::slotted([slot="end-icon"]),
-.is-icon ::slotted([slot="icon"]) {
-	width: auto !important;
-	font-family: "Material Symbols Rounded" !important;
-	vertical-align: text-bottom;
 }
 
 .results-source {

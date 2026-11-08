@@ -1,3 +1,5 @@
+import { setActiveTab } from "../scripts/tabs";
+
 export function getMDUIIcon(
 	name: string,
 	classes: string = "",
@@ -27,6 +29,17 @@ export async function listenForCollapse(
 		});
 		collapse.addEventListener("close", () => {
 			collapse.removeAttribute("open");
+		});
+	});
+}
+
+export async function listenForTabLink(
+	root: HTMLElement | HTMLDocument = document,
+) {
+	const elements = [...root.getElementsByClassName("tab-link")];
+	elements.forEach((elem) => {
+		elem.addEventListener("click", () => {
+			setActiveTab(elem.getAttribute("data-page")!);
 		});
 	});
 }

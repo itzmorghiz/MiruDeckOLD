@@ -1,21 +1,18 @@
 import { NavigationBar } from "mdui";
 
 const PAGE_TREE = {
+	profile: {},
 	main: {
 		navbar: true,
 		home: {},
 		search: {},
 		settings: {},
 	},
-	reader: {
-		navbar: false,
-	},
-	details: {
-		navbar: false,
-	},
+	reader: {},
+	details: {},
 };
 
-let globalFallbackTabId: string | null = "search";
+let globalFallbackTabId: string | null = "home";
 
 export function setGlobalFallbackTab(id: string) {
 	if (!PAGE_REGISTRY[id]) {

@@ -10,12 +10,29 @@
 		<script type="module" src="/src/main.ts" defer></script>
 	</head>
 	<body id="body">
-		<mdui-snackbar
-			close-on-outside-click
-			closeable
-			id="snackbar"
-			placement="top"
-		></mdui-snackbar>
+		<!--profile page-->
+		<mdui-layout-main class="page" id="profile" nopad>
+			<mdui-top-app-bar
+				scroll-behavior="elevate"
+				scroll-target="#profile-content"
+				top
+			>
+				<mdui-button-icon
+					icon="arrow_back"
+					class="back-button"
+				></mdui-button-icon>
+
+				<mdui-top-app-bar-title>Profile</mdui-top-app-bar-title>
+			</mdui-top-app-bar>
+
+			<mdui-layout-main id="profile-content" scroll>
+				<mdui-button>
+					Login with Google
+					<span slot="icon" class="google-icon">G</span>
+				</mdui-button>
+			</mdui-layout-main>
+		</mdui-layout-main>
+
 		<!--main page-->
 		<mdui-layout-main class="page" id="main" nopad>
 			<!--home page-->
@@ -103,86 +120,14 @@
 					scroll-target="#settings-content"
 				>
 					<mdui-top-app-bar-title>Settings</mdui-top-app-bar-title>
-					<mdui-button-icon icon="more_vert"></mdui-button-icon>
+					<mdui-button-icon
+						icon="person"
+						class="tab-link"
+						data-page="profile"
+					></mdui-button-icon>
 				</mdui-top-app-bar>
 
-				<mdui-layout-main id="settings-content" scroll>
-					<div class="settings-group">
-						<div class="settings-group-name">Category name</div>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-					</div>
-					<div class="settings-group">
-						<div class="settings-group-name">Category name</div>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-					</div>
-					<div class="settings-group">
-						<div class="settings-group-name">Category name</div>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-					</div>
-					<div class="settings-group">
-						<div class="settings-group-name">Category name</div>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-					</div>
-					<div class="settings-group">
-						<div class="settings-group-name">Category name</div>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-						<mdui-card class="settings-entry">
-							<p class="setting-name">Test setting</p>
-							<mdui-switch></mdui-switch>
-						</mdui-card>
-					</div>
-				</mdui-layout-main>
+				<mdui-layout-main id="settings-content" scroll> </mdui-layout-main>
 			</mdui-layout-main>
 
 			<!--main navbar-->
@@ -207,7 +152,6 @@
 		<!--reader page-->
 		<mdui-layout-main class="page" id="reader" nopad>
 			<mdui-top-app-bar
-				scroll-behavior="hide"
 				scroll-target="#details-content"
 				top
 				small
